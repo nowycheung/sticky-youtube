@@ -1,0 +1,42 @@
+{
+  "name": "Youtube Sticky Video",
+  "version": "0.0.2",
+  "manifest_version": 2,
+  "description": "Keep Youtube video stick to screen while scrolling down",
+  "homepage_url": "https://chrome.google.com/webstore/detail/youtube-sticky-video/fbhpbimkdlompdechckegcmcphjjenkb",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png",
+    "256": "icons/icon256.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "page": "src/bg/background.html",
+    "persistent": true
+  },
+  "permissions": [
+    "tabs",
+    "webNavigation"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "css": [
+        "src/inject/inject.css"
+      ]
+    },
+    {
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "js": [
+        "js/jquery/jquery.min.js",
+        "src/inject/inject.js"
+      ],
+      "run_at": "document_end"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+.sticky-video {
+  transition: transform 0.6s;
+  transform: scale(0.5) translate(50%, 50%);
+  right: 20px;
+  bottom: 20px;
+  z-index: 9!important;
+  position: fixed!important;
+  box-shadow: 0 0 50px #000!important;
+}
+
+.sticky-video:after {
+  position: absolute;
+  background: gray;
+  z-index: 999;
+  top: -20px;
+  right: -20px;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  padding: 6px;
+  font-size: 250%;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+}
+
+.sticky-video:hover:after {
+  content: "✕"; 
+}
