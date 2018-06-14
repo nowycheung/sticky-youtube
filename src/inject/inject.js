@@ -1,17 +1,27 @@
 /* global chrome, $ */
 
+const activateSticky = (active, player) => {
+  if (active) {
+    player.addClass('sticky-video')
+    chrome.runtime.sendMessage({iconUrl: '../../icons/icon19.png'})
+  } else {
+    player.removeClass('sticky-video')
+    chrome.runtime.sendMessage({iconUrl: '../../icons/icon19-gray.png'})
+  }
+}
+
 const executeStickVideo = () => {
   let forceHide = false
   const player = $('#player:not([hidden])')
+  const videoStream = $('video.video-stream')
+  const document = $(window.document)
+  const primary = $('#columns #primary')
 
-  const stickVideo = (scrollElement) => {
+  const detectPlayer = (scrollElement) => {
     const topPosition = scrollElement.scrollTop()
+    const active = topPosition > videoStream.height() && !forceHide
+    activateSticky(active, player)
 
-    if (topPosition > $('video.video-stream').height() && !forceHide) {
-      player.addClass('sticky-video')
-    } else {
-      player.removeClass('sticky-video')
-    }
     if (topPosition === 0) {
       forceHide = false
     }
@@ -20,12 +30,12 @@ const executeStickVideo = () => {
   player.click((e) => {
     if (e.target.id === 'player') {
       forceHide = true
-      player.removeClass('sticky-video')
+      activateSticky(false, player)
     }
   })
 
-  $(window.document).scroll(() => stickVideo($(window.document)))
-  $('#primary').scroll(() => stickVideo($('#primary')))
+  document.scroll(() => detectPlayer(document))
+  primary.scroll(() => detectPlayer(primary))
 }
 
 chrome.runtime.onMessage.addListener((data) => {
@@ -37,8 +47,6 @@ chrome.runtime.onMessage.addListener((data) => {
 chrome.runtime.sendMessage({ready: true}, (data) => {
   if (data.videoPlaying) {
     // Wait until the player element is ready
-    setTimeout(() => {
-      executeStickVideo()
-    }, 1000)
+    setTimeout(executeStickVideo, 1000)
   }
 })
