@@ -2,10 +2,11 @@
 
 const executeStickVideo = () => {
   let forceHide = false
-  const player = $('#player.ytd-watch-flexy')
+  const player = $('#player:not([hidden])')
 
   const stickVideo = (scrollElement) => {
     const topPosition = scrollElement.scrollTop()
+
     if (topPosition > $('video.video-stream').height() && !forceHide) {
       player.addClass('sticky-video')
     } else {

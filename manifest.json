@@ -1,6 +1,6 @@
 {
   "name": "Youtube Sticky Video",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "manifest_version": 2,
   "description": "Keep Youtube video stick to screen while scrolling down",
   "homepage_url": "https://chrome.google.com/webstore/detail/youtube-sticky-video/fbhpbimkdlompdechckegcmcphjjenkb",
